@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile - SmartCart</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;       /* Royal Blue */
+            --primary-hover: #1d4ed8;
+            --success: #10b981;       /* Emerald */
+            --warning: #f59e0b;       /* Amber Gold */
+            --danger: #ef4444;        /* Crimson Red */
+            --dark: #0f172a;          /* Slate Navy */
+            --dark-light: #1e293b;
+            --light: #ffffff;
+            --gray-light: #f8fafc;    /* Background color */
+            --gray-border: #e2e8f0;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        .navbar-admin {
+            background: var(--dark) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-card {
+            border: 1px solid var(--gray-border);
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.03);
+        }
+
+        .form-label {
+            color: var(--text-main);
+            font-size: 14px;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid var(--gray-border);
+            background-color: #fdfdfd;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            background-color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-update:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            color: white;
+        }
+
+        .marquee-box{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,.80);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.50);
+    border-radius: 16px;
+    padding: 12px;
+}
+
+        .info-card {
+            border: 1px solid var(--gray-border);
+            border-radius: 16px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Admin Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-admin mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white d-flex align-items-center gap-2" href="/admin-dashboard">
+                <i class="fas fa-cog text-primary"></i> SmartCart Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin-dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/products">
+                            <i class="fas fa-box me-1"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/add-item">
+                            <i class="fas fa-plus-circle me-1"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold text-white" href="/admin/profile">
+                            <i class="fas fa-user-cog me-1"></i> Profile
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="/admin-logout" class="btn btn-danger btn-sm px-3 rounded-pill">
+                        <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-fill">
+        <div class="container mt-2">
+
+            <!-- Announcement -->
+            <div class="marquee-box shadow-sm mb-4">
+                <div class="scrolling-text" aria-live="polite">
+                    👤 Manage your profile • 🔒 Keep your account secure • 📷 Upload profile picture • 🚀 SmartCart Admin Panel
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="profile-header shadow">
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center text-md-start">
+                        {% if admin.profile_image %}
+                            <img src="{{ url_for('static', filename='uploads/admin_profiles/' ~ admin.profile_image) }}"
+                                class="profile-image" alt="Admin Profile">
+                        {% else %}
+                            <img src="https://via.placeholder.com/140"
+                                class="profile-image" alt="Default Profile">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-10 mt-3 mt-md-0 text-center text-md-start">
+                        <h2 class="fw-bold mb-2">
+                            {{ admin.name }}
+                        </h2>
+                        <p class="mb-0 text-white-50">
+                            <i class="fas fa-envelope me-2"></i>
+                            {{ admin.email }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show rounded-3 shadow-sm" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card profile-card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bold mb-4 text-dark d-flex align-items-center gap-2">
+                                <i class="fas fa-user-edit text-primary"></i>
+                                Update Profile
+                            </h4>
+
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="adminName" class="form-label fw-semibold">
+                                        Full Name
+                                    </label>
+                                    <input id="adminName"
+                                        type="text"
+                                        name="name"
+                                        value="{{ admin.name }}"
+                                        class="form-control"
+                                        required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="adminEmail" class="form-label fw-semibold">
+                                        Email Address
+                                    </label>
+                                    <input id="adminEmail"
+                                        type="email"
+                                        name="email"
+                                        value="{{ admin.email }}"
+                                        class="form-control"
+                                        required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="adminPassword" class="form-label fw-semibold">
+                                        New Password
+                                    </label>
+                                    <input id="adminPassword"
+                                        type="password"
+                                        name="password"
+                                        class="form-control"
+                                        placeholder="Leave blank to keep current password">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="adminProfileImage" class="form-label fw-semibold">
+                                        Profile Image
+                                    </label>
+                                    <input id="adminProfileImage"
+                                        type="file"
+                                        name="profile_image"
+                                        class="form-control"
+                                        accept="image/*">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-update">
+                                    <i class="fas fa-save me-2"></i>
+                                    Update Profile
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card info-card shadow-sm mb-3">
+                        <div class="card-body text-center py-4">
+                            <div class="mb-3">
+                                <i class="fas fa-user-shield fa-2x text-primary"></i>
+                            </div>
+                            <h5 class="fw-bold">Admin Account</h5>
+                            <p class="text-muted small mb-0">
+                                Manage your personal details, email credentials, and profile image.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card info-card shadow-sm mb-4">
+                        <div class="card-body text-center py-4">
+                            <div class="mb-3">
+                                <i class="fas fa-lock fa-2x text-success"></i>
+                            </div>
+                            <h5 class="fw-bold">Security</h5>
+                            <p class="text-muted small mb-0">
+                                Keep your login credentials secure by changing your password periodically.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-3 bg-white border-top">
+        <div class="container text-center text-muted small">
+            &copy; {{ current_year }} SmartCart Admin. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

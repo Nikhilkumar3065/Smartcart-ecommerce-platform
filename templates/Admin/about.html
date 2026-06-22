@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}About - SmartCart{% endblock %}
+
+{% block content %}
+
+<!-- Welcome Banner -->
+<div class="container-fluid mb-4">
+    <div class="bg-primary text-white rounded-4 shadow p-4 p-md-5 text-center">
+        <h1 class="fw-bold mb-3">
+            <i class="fas fa-shopping-cart me-2"></i>About SmartCart
+        </h1>
+        <p class="lead mb-0">
+            Smart Shopping • Fast Management • Better Experience
+        </p>
+    </div>
+</div>
+
+<!-- Scrolling Announcement -->
+<div class="container mb-4">
+    <div class="alert alert-warning shadow-sm rounded-3 mb-0">
+        <div class="scrolling-text" aria-live="polite">
+            🚀 SmartCart helps manage products, orders, and customers efficiently •
+            📦 Easy Inventory Management • 📊 Powerful Dashboard • 🛒 Seamless Shopping Experience
+        </div>
+    </div>
+</div>
+
+<!-- Main About Section -->
+<div class="container">
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body p-4 p-md-5">
+
+            <div class="text-center mb-5">
+                <i class="fas fa-store fa-4x text-primary mb-3"></i>
+                <h2 class="fw-bold">Welcome to SmartCart</h2>
+                <p class="text-muted fs-5">
+                    A modern e-commerce platform designed for learning, development,
+                    and rapid business management solutions.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Feature 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm text-center rounded-4">
+                        <div class="card-body">
+                            <i class="fas fa-box-open fa-3x text-success mb-3"></i>
+                            <h5 class="fw-bold">Product Management</h5>
+                            <p class="text-muted">
+                                Easily add, edit, update, and organize products with a user-friendly interface.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm text-center rounded-4">
+                        <div class="card-body">
+                            <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                            <h5 class="fw-bold">Admin Dashboard</h5>
+                            <p class="text-muted">
+                                Monitor products, orders, sales, and performance from one central dashboard.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm text-center rounded-4">
+                        <div class="card-body">
+                            <i class="fas fa-truck fa-3x text-warning mb-3"></i>
+                            <h5 class="fw-bold">Order Handling</h5>
+                            <p class="text-muted">
+                                Manage customer orders efficiently and ensure smooth delivery operations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mission Section -->
+            <div class="mt-5 p-4 bg-light rounded-4">
+                <h4 class="fw-bold mb-3">
+                    <i class="fas fa-bullseye text-danger me-2"></i>Our Mission
+                </h4>
+                <p class="text-muted mb-0">
+                    SmartCart aims to provide a simple yet powerful e-commerce experience
+                    for students, developers, and businesses. It demonstrates modern web
+                    development concepts while offering practical shopping and management features.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

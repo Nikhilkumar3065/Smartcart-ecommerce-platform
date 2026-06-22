@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}My Orders - SmartCart{% endblock %}
+
+{% block content %}
+<div class="container py-4 px-0 mb-5">
+
+    <div class="card border-0 shadow-sm p-4 p-md-5 mx-auto" style="max-width: 1000px;">
+
+        <div class="d-flex align-items-center gap-2 mb-4 pb-3 border-bottom">
+            <i class="bi bi-bag-check-fill fs-2 text-primary"></i>
+            <h2 class="fw-bold mb-0">My Orders</h2>
+        </div>
+
+        {% if orders and orders|length > 0 %}
+
+        <div class="row g-4">
+
+            {% for order in orders %}
+            <div class="col-lg-6">
+
+                <div class="card border-0 shadow-sm order-card h-100">
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+
+                            <div>
+                                <h5 class="fw-bold mb-1">
+                                    Order #{{ order.order_id }}
+                                </h5>
+
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar-event me-1"></i>
+                                    {{ order.created_at }}
+                                </small>
+                            </div>
+
+                            <span class="badge bg-success px-3 py-2">
+                                ₹{{ "%.2f"|format(order.amount) }}
+                            </span>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+
+                            <p class="mb-2">
+                                <strong>Payment Status :</strong>
+
+                                {% if order.payment_status == 'paid' %}
+                                    <span class="text-success fw-bold">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Paid
+                                    </span>
+                                {% else %}
+                                    <span class="text-danger fw-bold">
+                                        {{ order.payment_status }}
+                                    </span>
+                                {% endif %}
+                            </p>
+
+                            <p class="mb-2 text-muted small">
+                                <strong>Razorpay Order ID:</strong><br>
+                                {{ order.razorpay_order_id }}
+                            </p>
+
+                            <p class="mb-2 text-muted small">
+                                <strong>Payment ID:</strong><br>
+                                {{ order.razorpay_payment_id }}
+                            </p>
+
+                            <p class="mb-2 text-muted small">
+                                <strong>Customer Name:</strong><br>
+                                {{ order.username or 'Guest' }}
+                            </p>
+
+                            <p class="mb-0 text-muted small">
+                                <strong>Shipping Address:</strong><br>
+                                {{ order.address or 'Not Provided' }}
+                            </p>
+
+                        </div>
+
+                        <div class="d-grid mt-4">
+
+                            <a href="/user/download-invoice/{{ order.order_id }}" class="view-btn">
+    Download Invoice
+</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <i class="bi bi-bag-x text-muted" style="font-size: 80px;"></i>
+
+            <h3 class="fw-bold mt-3">
+                No Orders Found
+            </h3>
+
+            <p class="text-muted">
+                You haven't placed any orders yet.
+            </p>
+
+            <a href="{{ url_for('shop') }}" class="btn btn-primary btn-lg mt-2">
+                <i class="bi bi-bag-plus-fill me-2"></i>
+                Shop Now
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<style>
+.order-card{
+    transition: all 0.3s ease;
+    border-radius: 18px;
+}
+
+.order-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08) !important;
+}
+
+.badge{
+    font-size: 14px;
+    border-radius: 50px;
+}
+
+.card-body p{
+    word-break: break-word;
+}
+</style>
+
+{% endblock %}

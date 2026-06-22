@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Invoice #{{ order.order_id }}</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333;
+            padding: 10px;
+        }
+        .invoice-box {
+            width: 100%;
+            margin: auto;
+            border: 1px solid #eee;
+            padding: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #0f172a;
+            font-size: 24px;
+        }
+        .section-title {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-table {
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            border: none;
+            padding: 4px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .items-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+        .items-table th, .items-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+        .items-table th {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: bold;
+        }
+        .total-box {
+            text-align: right;
+            margin-top: 25px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="invoice-box">
+    <div class="header">
+        <h2>SmartCart Invoice</h2>
+    </div>
+
+    <table class="info-table">
+        <tr>
+            <td style="width: 50%; vertical-align: top;">
+                <strong style="font-size: 14px; color: #0f172a; display: block; margin-bottom: 5px;">Customer Details</strong><br>
+                <strong>Name:</strong> {{ order.username or 'Guest' }}<br>
+                <strong>Address:</strong> {{ order.address or 'Not Provided' }}<br>
+                <strong>User ID:</strong> #{{ order.user_id }}
+            </td>
+            <td style="width: 50%; vertical-align: top; text-align: right;">
+                <strong style="font-size: 14px; color: #0f172a; display: block; margin-bottom: 5px;">Order Details</strong><br>
+                <strong>Order ID:</strong> #{{ order.order_id }}<br>
+                <strong>Date:</strong> {{ order.created_at }}<br>
+                <strong>Payment ID:</strong> {{ order.razorpay_payment_id or 'N/A' }}<br>
+                <strong>Payment Status:</strong> {{ order.payment_status|upper }}
+            </td>
+        </tr>
+    </table>
+
+    <h3 class="section-title">Order Items</h3>
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th style="width: 15%; text-align: center;">Qty</th>
+                <th style="width: 25%; text-align: right;">Price (Rs.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for it in items %}
+            <tr>
+                <td>{{ it.product_name }}</td>
+                <td style="text-align: center;">{{ it.quantity }}</td>
+                <td style="text-align: right;">{{ "%.2f"|format(it.price) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total-box">
+        <strong>Grand Total: Rs. {{ "%.2f"|format(order.amount) }}</strong>
+    </div>
+</div>
+
+</body>
+</html>

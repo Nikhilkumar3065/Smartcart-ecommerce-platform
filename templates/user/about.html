@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}About SmartCart{% endblock %}
+
+{% block content %}
+<div class="container py-4 px-0 mb-5">
+    <div class="card border-0 shadow-sm p-4 p-md-5 mx-auto" style="max-width: 900px;">
+        
+        <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
+            <i class="bi bi-info-circle fs-2 text-primary"></i>
+            <h2 class="fw-bold mb-0">About SmartCart</h2>
+        </div>
+
+        <p class="lead text-muted lh-lg">
+            SmartCart is designed to feel modern, trustworthy, and easy to use—just like the leading online marketplaces. We bridge the gap between users and quality products through a seamless digital experience.
+        </p>
+
+        <div class="row g-4 mt-4 text-start">
+            <div class="col-md-4">
+                <div class="p-4 border rounded-4 bg-light h-100 transition-hover">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle p-2 mb-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-cart3 fs-4"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Easy Shopping</h5>
+                    <p class="small text-muted mb-0">Browse a beautifully organized catalog, save favorites, and checkout in seconds.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 border rounded-4 bg-light h-100 transition-hover">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle p-2 mb-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-sliders fs-4"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Store Management</h5>
+                    <p class="small text-muted mb-0">Admin dashboard tools let you manage products, view orders, and keep inventory up to date.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 border rounded-4 bg-light h-100 transition-hover">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-warning-subtle text-warning rounded-circle p-2 mb-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-shield-lock fs-4"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark">Secure Checkout</h5>
+                    <p class="small text-muted mb-0">A smooth checkout flow with cart previews, invoices, and secure payment methods.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+.transition-hover {
+    transition: all 0.3s ease;
+}
+.transition-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.04);
+    border-color: #cbd5e1 !important;
+}
+</style>
+{% endblock %}

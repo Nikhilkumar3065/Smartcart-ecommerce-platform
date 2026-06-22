@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - SmartCart{% endblock %}
+
+{% block content %}
+
+<!-- BREADCRUMB -->
+<div class="container px-0 mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white p-3 rounded-4 shadow-sm border">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none"><i class="bi bi-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="/shop" class="text-decoration-none">Shop</a></li>
+            <li class="breadcrumb-item"><a href="/shop?category={{ product.category }}" class="text-decoration-none">{{ product.category }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- PRODUCT DETAILS -->
+<div class="container px-0 mb-5">
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="row g-0">
+
+            <!-- IMAGE SECTION -->
+            <div class="col-lg-5">
+                <div class="position-relative h-100 bg-light d-flex align-items-center justify-content-center p-5 border-end">
+                    <span class="badge bg-danger position-absolute top-0 start-0 m-3 px-3 py-2 fs-6 rounded-pill">
+                        <i class="bi bi-fire"></i> Best Seller
+                    </span>
+                    <img src="{{ url_for('static', filename='uploads/item_images/' ~ product.image) }}"
+                         class="img-fluid rounded-4 product-main-image shadow-sm"
+                         alt="{{ product.name }}">
+                </div>
+            </div>
+
+            <!-- DETAILS SECTION -->
+            <div class="col-lg-7">
+                <div class="p-4 p-lg-5">
+                    
+                    <!-- Category -->
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 mb-3 rounded-pill text-uppercase fw-bold">
+                        {{ product.category }}
+                    </span>
+
+                    <!-- Product Name -->
+                    <h1 class="fw-bold text-dark mb-2">
+                        {{ product.name }}
+                    </h1>
+
+                    <!-- Ratings -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="text-warning fs-5">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill text-muted"></i>
+                        </div>
+                        <span class="text-muted ms-2 fw-semibold">4.8 Rating (120 reviews)</span>
+                    </div>
+
+                    <!-- Price -->
+                    <h2 class="text-primary fw-bold mb-4">
+                        ₹{{ "%.2f"|format(product.price) }}
+                    </h2>
+
+                    <!-- Stock Info -->
+                    <div class="alert alert-success border-0 rounded-4 d-flex align-items-center gap-2 py-3 px-4 shadow-sm mb-4">
+                        <i class="bi bi-check-circle-fill text-success fs-4"></i>
+                        <div>
+                            <strong class="d-block">In Stock & Ready to Ship</strong>
+                            <span class="small text-muted">Order within 4 hours to ship today.</span>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-dark mb-2">Product Description</h5>
+                        <p class="text-muted lh-lg">
+                            {{ product.description }}
+                        </p>
+                    </div>
+
+                    <!-- Key features cards -->
+                    <div class="row g-3 mb-5">
+                        <div class="col-4">
+                            <div class="card border border-light-subtle bg-light-subtle h-100 shadow-none">
+                                <div class="card-body text-center p-3">
+                                    <i class="bi bi-truck fs-3 text-primary"></i>
+                                    <h6 class="mt-2 mb-0 small fw-bold">Fast Delivery</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card border border-light-subtle bg-light-subtle h-100 shadow-none">
+                                <div class="card-body text-center p-3">
+                                    <i class="bi bi-shield-fill-check fs-3 text-success"></i>
+                                    <h6 class="mt-2 mb-0 small fw-bold">Secure Pay</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card border border-light-subtle bg-light-subtle h-100 shadow-none">
+                                <div class="card-body text-center p-3">
+                                    <i class="bi bi-arrow-counterclockwise fs-3 text-warning"></i>
+                                    <h6 class="mt-2 mb-0 small fw-bold">7-Day Return</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="d-grid gap-3">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <a href="/add-to-cart/{{ product.item_id }}"
+                                   class="btn btn-outline-primary btn-lg w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-cart-plus-fill fs-5"></i> Add To Cart
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="/buy-now/{{ product.item_id }}"
+                                   class="btn btn-success btn-lg w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-lightning-charge-fill fs-5"></i> Buy Now
+                                </a>
+                            </div>
+                        </div>
+                        <a href="/shop"
+                           class="btn btn-outline-secondary py-3 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-arrow-left"></i> Back To Shop
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+.product-main-image {
+    max-height: 450px;
+    object-fit: contain;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.product-main-image:hover {
+    transform: scale(1.03);
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Catalog - SmartCart Admin</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --dark: #0f172a;
+        --dark-light: #1e293b;
+        --gray-light: #f8fafc;
+        --gray-border: #e2e8f0;
+        --text-main: #334155;
+        --text-muted: #64748b;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--gray-light);
+        color: var(--text-main);
+      }
+
+      /* Navbar Style */
+      .navbar {
+        background-color: var(--dark) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 14px 0;
+      }
+
+      .navbar-brand {
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: #ffffff !important;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.75) !important;
+        transition: color 0.2s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ffffff !important;
+      }
+
+      /* Catalog Layout */
+      .catalog-header {
+        background: linear-gradient(135deg, var(--dark), var(--dark-light));
+        color: white;
+        padding: 35px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.05);
+      }
+
+      .catalog-header h2 {
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .search-card {
+        border: none;
+        border-radius: 18px;
+        border: 1px solid var(--gray-border);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      }
+
+      .form-control,
+      .form-select {
+        border-radius: 10px;
+        border: 1px solid var(--gray-border);
+        padding: 11px 15px;
+        font-size: 0.9rem;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        border-color: var(--primary);
+      }
+
+      /* Products Table */
+      .table-card {
+        border: none;
+        border-radius: 20px;
+        border: 1px solid var(--gray-border);
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      }
+
+      .table-responsive {
+        background: #ffffff;
+      }
+
+      .table th {
+        background-color: #f8fafc !important;
+        color: var(--text-main);
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--gray-border);
+        padding: 18px 20px;
+      }
+
+      .table td {
+        padding: 16px 20px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .item-thumb {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--gray-border);
+        background: #ffffff;
+        transition: transform 0.2s ease;
+      }
+
+      .item-thumb:hover {
+        transform: scale(1.05);
+      }
+
+      .table tbody tr:hover {
+        background-color: #fafbfc;
+      }
+
+      .btn {
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 8px 16px;
+      }
+
+      .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: center;
+        min-width: 90px;
+      }
+
+      /* Marquee */
+      .marquee-box {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        padding: 12px;
+      }
+
+      .scrolling-text {
+        display: inline-block;
+        padding-left: 100%;
+        white-space: nowrap;
+        font-weight: 600;
+        animation: marquee 15s linear infinite;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Admin Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-white" href="/admin-dashboard">
+          ⚙️ SmartCart Admin
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#adminNavbar"
+          aria-controls="adminNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="adminNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-white-50" href="/admin-dashboard">
+                <i class="fas fa-tachometer-alt me-1"></i>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active fw-bold text-white"
+                href="/admin/products"
+              >
+                <i class="fas fa-box me-1"></i>
+                Products
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white-50" href="/admin/add-item">
+                <i class="fas fa-plus-circle me-1"></i>
+                Add Product
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white-50" href="/admin/profile">
+                <i class="fas fa-user-cog me-1"></i>
+                Profile
+              </a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+            <a href="/admin-logout" class="btn btn-danger btn-sm px-3">
+              <i class="fas fa-sign-out-alt me-1"></i>
+              Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-fill">
+      <div class="container py-4">
+        <!-- Marquee -->
+        <div class="marquee-box shadow-sm">
+          <div class="scrolling-text">
+            📦 Manage Inventory &bull; Search Products &bull; Update Catalog
+            &bull; SmartCart Product Management Dashboard
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="catalog-header shadow">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center"
+          >
+            <div>
+              <h2 class="fw-bold mb-1">Product Catalog</h2>
+              <p class="mb-0 text-white-50">
+                Search, filter and manage all products from one place.
+              </p>
+            </div>
+            <a
+              href="/admin/add-item"
+              class="btn btn-warning mt-3 mt-md-0 d-inline-flex align-items-center gap-2"
+            >
+              <i class="fas fa-plus"></i>
+              Add Product
+            </a>
+          </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="card shadow search-card mb-4">
+          <div class="card-body p-4">
+            <form method="get" action="/admin/items/search" class="row g-3">
+              <div class="col-lg-4">
+                <input
+                  type="text"
+                  name="query"
+                  class="form-control"
+                  placeholder="Search by product name"
+                />
+              </div>
+              <div class="col-lg-3">
+                <select
+                  name="category"
+                  class="form-select"
+                  aria-label="Filter by category"
+                >
+                  <option value="">All Categories</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Fashion">Fashion</option>
+                  <option value="Home & Living">Home & Living</option>
+                  <option value="Beauty">Beauty</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Grocery">Grocery</option>
+                  <option value="Books">Books</option>
+                </select>
+              </div>
+              <div class="col-lg-3">
+                <input
+                  type="number"
+                  step="0.01"
+                  name="price"
+                  class="form-control"
+                  placeholder="Maximum Price"
+                />
+              </div>
+              <div class="col-lg-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center gap-2"
+                >
+                  <i class="fas fa-search"></i>
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Product Table -->
+        {% if items %}
+          <div class="card shadow-lg table-card">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 80px">ID</th>
+                    <th scope="col" style="width: 100px">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col" style="width: 150px">Price</th>
+                    <th scope="col" class="text-center" style="width: 300px">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in items %}
+                    <tr>
+                      <td class="fw-semibold text-muted">{{ loop.index }}</td>
+                      <td>
+                        <img
+                          src="{{ url_for('static', filename='uploads/item_images/' ~ item.image) }}"
+                          class="item-thumb shadow-sm"
+                          alt="{{ item.name }}"
+                        />
+                      </td>
+                      <td>
+                        <strong class="text-dark">{{ item.name }}</strong>
+                      </td>
+                      <td>
+                        <span
+                          class="badge bg-light text-secondary border px-2 py-1 rounded-pill small"
+                        >
+                          {{ item.category }}
+                        </span>
+                      </td>
+                      <td class="fw-bold text-primary">₹{{ "%.2f"|format(item.price) }}</td>
+                      <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                          <a
+                            href="/admin/product/{{ item.item_id }}"
+                            class="btn btn-info btn-sm btn-action text-white"
+                          >
+                            <i class="fas fa-info-circle"></i>
+                            Details
+                          </a>
+                          <a
+                            href="/admin/edit-item/{{ item.item_id }}"
+                            class="btn btn-primary btn-sm btn-action"
+                          >
+                            <i class="fas fa-edit"></i>
+                            Edit
+                          </a>
+                          <a
+                            href="/admin/delete-item/{{ item.item_id }}"
+                            class="btn btn-danger btn-sm btn-action"
+                            onclick="return confirm('Delete this item?');"
+                          >
+                            <i class="fas fa-trash-alt"></i>
+                            Delete
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% else %}
+          <div class="card p-5 text-center border-0 shadow-sm rounded-4">
+            <div class="mb-3">
+              <i class="fas fa-box-open text-muted" style="font-size: 4rem"></i>
+            </div>
+            <h4 class="fw-bold">No Products Found</h4>
+            <p class="text-muted mb-4">
+              Start building your catalog by adding your first product listing.
+            </p>
+            <a href="/admin/add-item" class="btn btn-success px-4 py-2">
+              <i class="fas fa-plus me-1"></i>
+              Add Product
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

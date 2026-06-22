@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Confirmed - SmartCart{% endblock %}
+
+{% block content %}
+<div class="container py-4 px-0 mb-5">
+    <div class="card border-0 shadow-sm p-4 p-md-5 mx-auto text-center" style="max-width: 850px;">
+        
+        <div class="mb-4">
+            <div class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle p-3 mb-3" style="width: 80px; height: 80px;">
+                <i class="bi bi-patch-check-fill fs-1"></i>
+            </div>
+            <h2 class="fw-bold text-dark">Order Confirmed!</h2>
+            <p class="lead text-muted mt-2">
+                Thank you for your purchase, <strong>{{ order.user_name }}</strong>.
+            </p>
+            <p class="text-muted">
+                Your order ID is <strong>#{{ order.order_id }}</strong>. We have sent a confirmation email with details.
+            </p>
+        </div>
+
+        <div class="row g-4 text-start mt-2 mb-5">
+            <div class="col-md-6">
+                <div class="card bg-light border p-4 rounded-4 shadow-none h-100">
+                    <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-truck me-2 text-primary"></i>Delivery Address</h5>
+                    <p class="mb-1 fw-bold text-dark">{{ order.address.full_name }}</p>
+                    <p class="mb-1 text-muted">{{ order.address.address_line1 }}{% if order.address.address_line2 %}, {{ order.address.address_line2 }}{% endif %}</p>
+                    <p class="mb-1 text-muted">{{ order.address.city }}, {{ order.address.state }} - {{ order.address.postal_code }}</p>
+                    <p class="mb-1 text-muted">{{ order.address.country }}</p>
+                    <p class="mb-0 text-muted"><i class="bi bi-telephone me-1"></i> {{ order.address.phone }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-light border p-4 rounded-4 shadow-none h-100">
+                    <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-credit-card me-2 text-primary"></i>Payment Info</h5>
+                    <p class="mb-2 text-muted">Method: <strong class="text-dark">{{ order.payment_method|capitalize }}</strong></p>
+                    <p class="mb-2 text-muted">Transaction ID: <strong class="text-dark">{{ order.payment.transaction_id }}</strong></p>
+                    <p class="mb-3 text-muted">Status: <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">{{ order.payment.status|capitalize }}</span></p>
+                    <h4 class="fw-bold text-primary mb-0">Total Paid: ₹{{ "%.2f"|format(order.total) }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="fw-bold text-dark text-start mb-3">Items Ordered</h4>
+        <div class="table-responsive border mb-5 shadow-none">
+            <table class="table align-middle text-start">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="border-0">Product Name</th>
+                        <th scope="col" class="border-0 text-center" style="width: 100px;">Quantity</th>
+                        <th scope="col" class="border-0 text-end" style="width: 150px;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order['items'] %}
+                        <tr>
+                            <td class="py-3 border-0 fw-bold text-dark">{{ item.name }}</td>
+                            <td class="py-3 border-0 text-center text-muted">{{ item.quantity }}</td>
+                            <td class="py-3 border-0 text-end fw-bold text-dark">₹{{ "%.2f"|format(item.line_total) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="/shop" class="btn btn-primary btn-lg px-4 py-3"><i class="bi bi-bag-plus me-1"></i> Continue Shopping</a>
+            <a href="/orders" class="btn btn-outline-dark btn-lg px-4 py-3"><i class="bi bi-receipt me-1"></i> View My Orders</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function playSuccessTone() {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            oscillator.type = 'triangle';
+            oscillator.frequency.value = 880;
+            gain.gain.value = 0.12;
+            oscillator.connect(gain);
+            gain.connect(audioCtx.destination);
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.15);
+        } catch (err) {
+            console.warn('Audio not supported or blocked', err);
+        }
+    }
+    window.addEventListener('load', playSuccessTone);
+</script>
+{% endblock %}

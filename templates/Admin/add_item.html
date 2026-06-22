@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item - SmartCart Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray-light: #f8fafc;
+            --gray-border: #e2e8f0;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        /* Navbar Style */
+        .navbar {
+            background-color: var(--dark) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75) !important;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        /* Banner & Card Style */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .hero-banner h2 {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .form-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--gray-border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-header-custom {
+            background-color: #fafbfc;
+            border-bottom: 1px solid var(--gray-border);
+            padding: 20px 25px;
+        }
+
+        .card-header-custom h4 {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--dark-light);
+            margin-bottom: 6px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--gray-border);
+            padding: 11px 15px;
+            font-size: 0.9rem;
+            background-color: #fafbfc;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: var(--primary);
+        }
+
+        .btn-save {
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 16px;
+            border: 1px solid var(--gray-border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.04);
+            border-color: #cbd5e1;
+        }
+
+        .feature-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-box i {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .feature-box h6 {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0;
+        }
+
+        /* Marquee */
+        .marquee-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            color: #b45309;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            overflow: hidden;
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee-items 20s linear infinite;
+        }
+
+        @keyframes marquee-items {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Admin Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white" href="/admin-dashboard">
+                ⚙️ SmartCart Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin-dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/products">
+                            <i class="fas fa-box me-1"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold text-white" href="/admin/add-item">
+                            <i class="fas fa-plus-circle me-1"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/profile">
+                            <i class="fas fa-user-cog me-1"></i> Profile
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="/admin-logout" class="btn btn-danger btn-sm px-3">
+                        <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-fill">
+        <div class="container mt-4">
+
+            <!-- Marquee -->
+            <div class="marquee-box shadow-sm">
+                <div class="scrolling-text">
+                    🚀 Add products quickly &bull; 📦 Manage inventory efficiently &bull; 🛒 SmartCart Admin Panel
+                </div>
+            </div>
+
+            <!-- Hero Banner -->
+            <div class="hero-banner shadow">
+                <h2 class="fw-bold"><i class="fas fa-plus-circle me-2"></i>Add New Product</h2>
+                <p class="mb-0 text-white-50">Fill in the product details below and publish it to your store.</p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show shadow-sm border-0 rounded-4 mb-4">
+                <div class="d-flex align-items-center gap-2">
+                    {% if category == 'success' %}
+                        <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                    {% else %}
+                        <i class="bi bi-exclamation-circle-fill text-danger fs-5"></i>
+                    {% endif %}
+                    <div>{{ message }}</div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="card shadow-lg form-card mb-5">
+                <div class="card-header-custom">
+                    <h4 class="mb-0"><i class="fas fa-box-open me-2"></i>Product Information</h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="POST" action="/admin/add-item" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Item Name</label>
+                                <input type="text" name="name" class="form-control" placeholder="Enter item name" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category</label>
+                                <select name="category" class="form-select" required aria-label="Filter by category">
+                                    <option value="" disabled selected>-- Select Category --</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Home & Living">Home & Living</option>
+                                    <option value="Beauty">Beauty</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Grocery">Grocery</option>
+                                    <option value="Books">Books</option>
+                                    <option value="Toys">Toys</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" rows="4" class="form-control" placeholder="Enter product description" required></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price (₹)</label>
+                                <input type="number" step="0.01" min="0" name="price" class="form-control" placeholder="Enter item price" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Product Image</label>
+                                <input type="file" name="image" class="form-control" accept="image/*" required>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4 pb-2">
+                            <button type="submit" class="btn btn-primary btn-save px-5 py-3 d-inline-flex align-items-center gap-2">
+                                <i class="fas fa-save"></i> Save Product Listing
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Feature Section -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card feature-card shadow-sm">
+                        <div class="card-body feature-box">
+                            <i class="fas fa-bolt"></i>
+                            <h6>Fast Product Entry</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card shadow-sm">
+                        <div class="card-body feature-box">
+                            <i class="fas fa-layer-group"></i>
+                            <h6>Category Management</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card shadow-sm">
+                        <div class="card-body feature-box">
+                            <i class="fas fa-chart-line"></i>
+                            <h6>Inventory Tracking</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

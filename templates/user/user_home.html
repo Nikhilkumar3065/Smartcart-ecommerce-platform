@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Shop - SmartCart{% endblock %}
+
+{% block content %}
+
+<!-- ================= CATEGORY BAR (FLIPKART STYLE) ================= -->
+<div class="bg-white border-bottom py-3 mb-4 shadow-sm rounded-4">
+    <div class="container category-scroll-container d-flex gap-2 justify-content-start flex-nowrap overflow-auto py-1">
+        <a href="/shop" class="category-pill {% if not category_filter %}active{% endif %}">
+            <i class="bi bi-grid-fill me-1"></i> All Products
+        </a>
+        {% for cat in categories %}
+        <a href="/shop?category={{ cat.category }}"
+           class="category-pill {% if category_filter == cat.category %}active{% endif %}">
+            {{ cat.category }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= HERO BANNER ================= -->
+<div class="container px-0 mb-4">
+    <div class="hero-banner">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <span class="badge bg-warning text-dark fw-bold mb-2">🔥 LIMITED TIME OFFER</span>
+                <h1>Big Sale is Live!</h1>
+                <p class="mt-2 mb-4 text-white-50">Up to 70% OFF on Electronics, Fashion, and Premium Accessories. Free shipping on all orders over ₹999.</p>
+                <a href="#products" class="btn btn-warning px-4 py-2"><i class="bi bi-bag-check-fill me-2"></i>Shop Now</a>
+            </div>
+            <div class="col-md-4 text-end d-none d-md-block">
+                <i class="bi bi-gift text-white-50" style="font-size: 8rem; opacity: 0.15;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= FILTER INFO ================= -->
+<div class="container px-0 mb-3">
+    {% if search_query or category_filter %}
+    <div class="alert alert-info border-0 shadow-sm rounded-4 d-flex align-items-center justify-content-between p-3">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-filter-left fs-4 text-primary"></i>
+            <span>
+                Showing results for: 
+                {% if search_query %}
+                    <strong>Search:</strong> "{{ search_query }}"
+                {% endif %}
+                {% if category_filter %}
+                    {% if search_query %} &nbsp;|&nbsp; {% endif %}
+                    <strong>Category:</strong> "{{ category_filter }}"
+                {% endif %}
+            </span>
+        </div>
+        <a href="/shop" class="btn btn-sm btn-outline-dark px-3 py-1">Clear Filters</a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- ================= PRODUCTS ================= -->
+<div class="container px-0 mb-5" id="products">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0 text-dark">Explore Our Products</h4>
+        <span class="badge bg-light text-dark shadow-sm border px-3 py-2 fs-6 fw-normal">{{ items|length }} items available</span>
+    </div>
+
+    <div class="row g-4">
+        {% for item in items %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card h-100 product-card">
+                
+                <!-- Image Container -->
+                <div class="card-img-top-container position-relative" style="height:220px;">
+                    <img src="{{ url_for('static', filename='uploads/item_images/' ~ item.image) }}"
+                         class="w-100 h-100"
+                         style="object-fit:cover;"
+                         alt="{{ item.name }}">
+                </div>
+
+                <!-- Product Body -->
+                <div class="card-body">
+                    <span class="product-category">{{ item.category }}</span>
+                    <h5 class="product-title">
+                        {{ item.name }}
+                    </h5>
+                    <div class="rating-stars mb-2">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill text-muted"></i>
+                        <span class="text-muted small ms-1">(4.0)</span>
+                    </div>
+                    <p class="product-price">
+                        ₹{{ "%.2f"|format(item.price) }}
+                    </p>
+                </div>
+
+                <!-- Card Footer Actions -->
+                <div class="card-footer bg-white border-0 d-grid">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a href="/product/{{ item.item_id }}"
+                               class="btn btn-sm btn-outline-dark w-100 py-2" title="View Details">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/add-to-cart/{{ item.item_id }}"
+                               class="btn btn-sm btn-primary w-100 py-2" title="Add to Cart">
+                                <i class="bi bi-cart-plus"></i> Cart
+                            </a>
+                        </div>
+                    </div>
+                    <a href="/buy-now/{{ item.item_id }}"
+                       class="btn btn-sm btn-success w-100 mt-2 py-2">
+                        <i class="bi bi-lightning-charge"></i> Buy Now
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

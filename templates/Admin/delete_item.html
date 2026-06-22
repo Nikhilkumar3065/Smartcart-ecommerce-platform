@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Product - SmartCart Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            background: #f4f7fc;
+        }
+
+        .navbar {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-card {
+            border: none;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .warning-header {
+            background: linear-gradient(135deg, #dc3545, #ff6b6b);
+            color: white;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .warning-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        .product-detail {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .product-label {
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .btn-custom {
+            border-radius: 12px;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+
+        .marquee-box{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,.80);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.50);
+    border-radius: 16px;
+    padding: 12px;
+}
+
+        .delete-card:hover {
+            transform: translateY(-3px);
+            transition: 0.3s ease;
+        }
+            .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+</style>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Admin Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white" href="/admin-dashboard">
+                ⚙️ SmartCart Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin-dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/products">
+                            <i class="fas fa-box me-1"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/add-item">
+                            <i class="fas fa-plus-circle me-1"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/profile">
+                            <i class="fas fa-user-cog me-1"></i> Profile
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="/admin-logout" class="btn btn-danger btn-sm px-3">
+                        <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="flex-fill">
+
+        <div class="container py-4">
+
+            <!-- Announcement -->
+
+            <div class="marquee-box shadow-sm">
+
+                <div class="scrolling-text">
+                    ⚠️ Warning: Product deletion is permanent and cannot be undone.
+                </div>
+
+            </div>
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-8">
+
+                    <div class="card shadow-lg delete-card">
+
+                        <div class="warning-header">
+
+                            <i class="fas fa-triangle-exclamation warning-icon"></i>
+
+                            <h2 class="fw-bold">
+                                Confirm Product Deletion
+                            </h2>
+
+                            <p class="mb-0">
+                                This action cannot be reversed.
+                            </p>
+
+                        </div>
+
+                        <div class="card-body p-4">
+
+                            <div class="alert alert-danger">
+
+                                <strong>Attention:</strong>
+                                You are about to permanently remove this product from SmartCart.
+
+                            </div>
+
+                            <div class="product-detail">
+
+                                <div class="product-label">
+                                    Product ID
+                                </div>
+
+                                <div>
+                                    {{ product.product_id }}
+                                </div>
+
+                            </div>
+
+                            <div class="product-detail">
+
+                                <div class="product-label">
+                                    Product Name
+                                </div>
+
+                                <div>
+                                    {{ product.name }}
+                                </div>
+
+                            </div>
+
+                            <div class="product-detail">
+
+                                <div class="product-label">
+                                    Category
+                                </div>
+
+                                <div>
+                                    {{ product.category }}
+                                </div>
+
+                            </div>
+
+                            <div class="product-detail">
+
+                                <div class="product-label">
+                                    Price
+                                </div>
+
+                                <div>
+                                    ₹{{ "%.2f"|format(product.price) }}
+                                </div>
+
+                            </div>
+
+                            <form method="post">
+
+                                <div class="d-flex flex-wrap gap-3 mt-4">
+
+                                    <button type="submit"
+                                        class="btn btn-danger btn-custom">
+
+                                        <i class="fas fa-trash-alt me-2"></i>
+                                        Yes, Delete
+
+                                    </button>
+
+                                    <a href="{{ url_for('product_list') }}"
+                                        class="btn btn-secondary btn-custom">
+
+                                        <i class="fas fa-arrow-left me-2"></i>
+                                        Cancel
+
+                                    </a>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

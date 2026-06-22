@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}SmartCart - Shop Premium Experience{% endblock %}
+
+{% block content %}
+
+<!-- HERO HEADER -->
+<div class="container px-0 my-4">
+    <div class="card border-0 shadow-sm rounded-4 p-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: #ffffff;">
+        <!-- Glowing background shapes -->
+        <div class="position-absolute rounded-circle bg-primary opacity-25" style="width: 300px; height: 300px; top: -100px; right: -100px; filter: blur(80px);"></div>
+        
+        <div class="row align-items-center position-relative">
+            <!-- Left Content Column -->
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3 text-uppercase">
+                    ✨ Welcome to the Future of Shopping
+                </span>
+                <h1 class="display-4 fw-bold text-white lh-sm">
+                    Premium Shopping, <br>Simplified.
+                </h1>
+                <p class="lead text-white-50 mt-3 mb-4">
+                    Discover thousands of handpicked products with fast shipping, secure payment, and premium support.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ url_for('shop') }}" class="btn btn-warning btn-lg px-4 py-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-bag-fill"></i> Start Shopping
+                    </a>
+                    <a href="{{ url_for('about') }}" class="btn btn-outline-light btn-lg px-4 py-3">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Right Stats Column -->
+            <div class="col-lg-5">
+                <div class="card border border-secondary-subtle bg-white bg-opacity-10 backdrop-blur p-4 rounded-4 text-white shadow-none">
+                    <h5 class="fw-bold mb-3 text-warning"><i class="bi bi-graph-up-arrow me-2"></i>SmartCart Live Stats</h5>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-white bg-opacity-20 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                                <i class="bi bi-people-fill text-warning"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">10K+ Happy Customers</h6>
+                                <small class="text-white-50">Active buyers globally</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-white bg-opacity-20 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                                <i class="bi bi-box-seam-fill text-warning"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">5,000+ Premium Products</h6>
+                                <small class="text-white-50">Across multiple categories</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-white bg-opacity-20 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                                <i class="bi bi-shield-fill-check text-warning"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">100% Encrypted Payments</h6>
+                                <small class="text-white-50">Safe, secure checkouts</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VALUE PROPOSITION / FEATURES -->
+<div class="container px-0 my-5">
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 rounded-4 h-100 hover-lift">
+                <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle p-3 mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-truck fs-3"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-2">Fast Delivery</h4>
+                <p class="text-muted small mb-0">Lightning-fast shipping across all major cities, straight to your doorstep.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 rounded-4 h-100 hover-lift">
+                <div class="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle p-3 mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-shield-check fs-3"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-2">Secure Payments</h4>
+                <p class="text-muted small mb-0">Bank-level encrypted transactions supporting card, net banking, and UPI.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 rounded-4 h-100 hover-lift">
+                <div class="d-inline-flex align-items-center justify-content-center bg-warning-subtle text-warning rounded-circle p-3 mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-gift fs-3"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-2">Premium Deals</h4>
+                <p class="text-muted small mb-0">Handpicked items, exclusive coupons, and big seasonal discounts.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="container px-0 mb-5">
+    <div class="card border border-light-subtle bg-white p-5 rounded-4 shadow-sm text-center">
+        <h2 class="fw-bold text-dark">✨ Upgrade Your Shopping Experience</h2>
+        <p class="text-muted mt-2 mb-4 mx-auto" style="max-width: 600px;">
+            Join thousands of satisfied shoppers. Explore our catalog, enjoy exclusive savings, and experience shopping like never before.
+        </p>
+        <a href="{{ url_for('shop') }}" class="btn btn-primary btn-lg px-5 py-3 d-inline-flex align-items-center gap-2 mx-auto" style="width: fit-content;">
+            <i class="bi bi-cart-fill"></i> Enter SmartCart Shop
+        </a>
+    </div>
+</div>
+
+<style>
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
+}
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+}
+</style>
+{% endblock %}

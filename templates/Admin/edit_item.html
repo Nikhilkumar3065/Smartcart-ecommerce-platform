@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Item - SmartCart Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray-light: #f8fafc;
+            --gray-border: #e2e8f0;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        /* Navbar Style */
+        .navbar {
+            background-color: var(--dark) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75) !important;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        /* Layout & Header Style */
+        .update-header {
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .update-header h2 {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .update-card {
+            border: none;
+            border-radius: 20px;
+            border: 1px solid var(--gray-border);
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--dark-light);
+            margin-bottom: 6px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--gray-border);
+            padding: 11px 15px;
+            font-size: 0.9rem;
+            background-color: #fafbfc;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: var(--primary);
+        }
+
+        .preview-image {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid var(--gray-border);
+            margin-top: 10px;
+        }
+
+        .btn {
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 10px 24px;
+        }
+
+        /* Marquee */
+        .marquee-box{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,.80);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.50);
+    border-radius: 16px;
+    padding: 12px;
+}
+
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee-items 20s linear infinite;
+        }
+
+        @keyframes marquee-items {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Admin Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white" href="/admin-dashboard">
+                ⚙️ SmartCart Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="adminNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin-dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/products">
+                            <i class="fas fa-box me-1"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/add-item">
+                            <i class="fas fa-plus-circle me-1"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="/admin/profile">
+                            <i class="fas fa-user-cog me-1"></i> Profile
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="/admin-logout" class="btn btn-danger btn-sm px-3">
+                        <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-fill">
+        <div class="container py-4">
+
+            <!-- Marquee -->
+            <div class="marquee-box shadow-sm">
+                <div class="scrolling-text">
+                    ✏️ Update your product details &bull; Keep catalog information accurate &bull; Improve customer experience
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="update-header shadow">
+                <h2 class="fw-bold mb-2"><i class="fas fa-edit me-2"></i>Update Product</h2>
+                <p class="mb-0 text-white-50">Modify product information and keep your inventory up to date.</p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show shadow-sm border-0 rounded-4 mb-4">
+                <div class="d-flex align-items-center gap-2">
+                    {% if category == 'success' %}
+                        <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                    {% else %}
+                        <i class="bi bi-exclamation-circle-fill text-danger fs-5"></i>
+                    {% endif %}
+                    <div>{{ message }}</div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- Form Card -->
+            <div class="card shadow-lg update-card mb-5">
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" enctype="multipart/form-data">
+                        
+                        <div class="mb-4">
+                            <label for="editItemName" class="form-label">Product Name</label>
+                            <input id="editItemName" type="text" name="name" value="{{ product.name }}" class="form-control" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="editItemDescription" class="form-label">Description</label>
+                            <textarea id="editItemDescription" name="description" rows="4" class="form-control" required>{{ product.description }}</textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label for="editItemCategory" class="form-label">Category</label>
+                                    <select id="editItemCategory" name="category" class="form-select" required aria-label="Filter by category">
+                                        <option value="">-- Select Category --</option>
+                                        <option value="Electronics" {% if product.category == 'Electronics' %}selected="selected"{% endif %}>Electronics</option>
+                                        <option value="Fashion" {% if product.category == 'Fashion' %}selected="selected"{% endif %}>Fashion</option>
+                                        <option value="Home & Living" {% if product.category == 'Home & Living' %}selected="selected"{% endif %}>Home & Living</option>
+                                        <option value="Beauty" {% if product.category == 'Beauty' %}selected="selected"{% endif %}>Beauty</option>
+                                        <option value="Sports" {% if product.category == 'Sports' %}selected="selected"{% endif %}>Sports</option>
+                                        <option value="Grocery" {% if product.category == 'Grocery' %}selected="selected"{% endif %}>Grocery</option>
+                                        <option value="Books" {% if product.category == 'Books' %}selected="selected"{% endif %}>Books</option>
+                                        <option value="Toys" {% if product.category == 'Toys' %}selected="selected"{% endif %}>Toys</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label for="editItemPrice" class="form-label">Price (₹)</label>
+                                    <input id="editItemPrice" type="number" step="0.01" name="price" value="{{ product.price }}" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="editItemImage" class="form-label">Product Image</label>
+                            <input id="editItemImage" type="file" name="image" class="form-control">
+
+                            {% if product.image %}
+                            <div class="mt-3 bg-light p-3 rounded-4 d-inline-block border">
+                                <p class="text-muted small mb-2 fw-semibold">Current Image:</p>
+                                <img src="{{ url_for('static', filename='uploads/item_images/' ~ product.image) }}" class="preview-image shadow-sm" alt="{{ product.name }}">
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3 border-top pt-4">
+                            <button type="submit" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                                <i class="fas fa-save"></i> Update Product Listing
+                            </button>
+                            <a href="/admin/products" class="btn btn-outline-dark d-inline-flex align-items-center gap-2">
+                                <i class="fas fa-arrow-left"></i> Back to Products
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
